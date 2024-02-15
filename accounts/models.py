@@ -12,9 +12,18 @@ class CustomUserManager(BaseUserManager):
         """
         Validates the user field before saving
         """
+        first_name = extra_fields.get("first_name")
+        last_name = extra_fields.get("last_name")
+        mobile_phone_number = extra_fields.get("mobile_phone_number")
+        if not first_name:
+            raise ValueError("First name cannot be empty")
+        if not last_name:
+            raise ValueError("Last name cannot be empty")
+        if not mobile_phone_number:
+            raise ValueError("Mobile phone number is required")
+
         if not email:
             raise ValueError("Email cannot be empty")
-
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
