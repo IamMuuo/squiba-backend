@@ -32,3 +32,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+    def update(self, instance, validated_data):
+        # Check if the password field is included in the validated data
+        password = validated_data.pop("password", None)
+        if password:
+            # Hash the password and set it on the instance
+            instance.set_password(password)
+        # Update the other fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
