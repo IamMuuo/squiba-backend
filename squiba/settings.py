@@ -142,3 +142,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "profile_photos")
 
 JAZZMIN_SETTINGS = SQUIBA_JAZZMIN
 JAZZMIN_UI_TWEAKS = UI_TWEAKS
+
+
+# REST
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
