@@ -6,13 +6,22 @@ from .models import CustomUser
 from .serializers import CustomUserSerializer
 from django.contrib.auth import authenticate, login, logout
 
+from rest_framework.permissions import IsAuthenticated
 
-class CustomUserListCreateView(generics.ListCreateAPIView):
+
+class CustomUserCreateView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
 
+class CustomUserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [IsAuthenticated]
+
+
 class CustomUserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
