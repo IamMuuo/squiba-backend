@@ -13,6 +13,8 @@ class Post(models.Model):
     liked_by = models.ManyToManyField(
         CustomUser, related_name="liked_posts", blank=True
     )
+
+    content = models.ImageField(upload_to="posts/", null=True, blank=True)
     # Assuming you have a Comment model with a ForeignKey to Post
     # comments = models.ManyToManyField(Comment, related_name="post_comments", blank=True)
 

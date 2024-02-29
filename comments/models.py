@@ -1,5 +1,8 @@
 from django.db import models
 
+from posts.models import Post
+from stories.models import CustomUser
+
 
 # Create your models here.
 class Comment(models.Model):

@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("accounts.urls")),
     path("stories/", include("stories.urls")),
+    path("posts/", include("posts.urls")),
 ]
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
