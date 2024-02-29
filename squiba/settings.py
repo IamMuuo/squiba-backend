@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # inbuilt application
     "accounts",
     "stories",
+    "posts",
 ]
 
 MIDDLEWARE = [
