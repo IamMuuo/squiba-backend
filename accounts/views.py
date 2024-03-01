@@ -1,12 +1,8 @@
-from django.shortcuts import render
-
 from rest_framework import generics
 from rest_framework.views import APIView, Response, status
 from .models import CustomUser
 from .serializers import CustomUserSerializer
 from django.contrib.auth import authenticate, login, logout
-
-from rest_framework.permissions import IsAuthenticated
 
 
 class CustomUserCreateView(generics.CreateAPIView):
@@ -25,9 +21,7 @@ class CustomUserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)
 
 
 class LoginView(APIView):
-    """
-    Authentication API
-    """
+    """Authentication API."""
 
     def get(self, request, *args, **kwargs):
         logout(request)
@@ -43,7 +37,18 @@ class LoginView(APIView):
         if user is not None:
             login(request, user)
             serializer = CustomUserSerializer(user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            # print(serializer.data)
+            # serializer.data["profile_photo"] = (
+            #     request.META["SERVER_NAME"] + serializer.data["profile_photo"]
+            # )
+            print(request.get_host())
+            data = serializer.data
+            data["profile_photo"] = (
+                "http://" + request.get_host() + data["profile_photo"]
+            )
+
+            return Response(data, status=status.HTTP_200_OK)
+
         else:
             return Response(
                 {"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST
