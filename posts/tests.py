@@ -20,6 +20,7 @@ class PostViewTest(TestCase):
         """Instanciate an instance."""
         self.client = Client()
         self.user = User.objects.create_user(
+            username="testuser",
             first_name="test",
             last_name="test",
             mobile_phone_number="070707070",

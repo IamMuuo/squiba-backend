@@ -5,9 +5,13 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 # Create your tests here.
 class CustomUserModelTest(TestCase):
+    """Tests for the custom user model."""
+
     def test_create_user(self):
+        """Test creation of a user."""
         # Test creating a user with email and mobile phone number
         user = CustomUser.objects.create_user(
+            "testuser",
             email="testuser@example.com",
             mobile_phone_number="1234567890",
             password="testpassword123",
@@ -21,12 +25,13 @@ class CustomUserModelTest(TestCase):
         self.assertEqual(user.last_name, "User")
 
     def test_create_user_with_profile_photo(self):
-        # Test creating a user with a profile photo
+        """Test for creating a user with a profile photo."""
         photo_content = b"file_content"
         photo = SimpleUploadedFile(
             "test_photo.jpg", photo_content, content_type="image/jpeg"
         )
         user = CustomUser.objects.create_user(
+            "testuser",
             email="testuser@example.com",
             mobile_phone_number="1234567890",
             password="testpassword123",
@@ -38,13 +43,16 @@ class CustomUserModelTest(TestCase):
         saved_photo_content = saved_photo.read()
         saved_photo.close()
 
-        # Assert that the contents of the uploaded file are equal to the contents of the saved file
+        # Assert that the uploaded profile is similar
+        # to the saved profile
+
         self.assertEqual(photo_content, saved_photo_content)
 
     def test_create_user_with_empty_first_name_and_last_name(self):
-        # Test creating a user with empty first name and last name
+        """Test creating a user with empty first name and last name."""
         with self.assertRaises(ValueError):
             CustomUser.objects.create_user(
+                "testuser",
                 email="testuser@example.com",
                 mobile_phone_number="1234567890",
                 password="testpassword123",
@@ -53,9 +61,10 @@ class CustomUserModelTest(TestCase):
             )
 
     def test_create_user_with_empty_email(self):
-        # Test creating a user with empty email
+        """Test creating a user with empty email."""
         with self.assertRaises(ValueError):
             CustomUser.objects.create_user(
+                "testuser",
                 email="",
                 mobile_phone_number="1234567890",
                 password="testpassword123",
@@ -64,9 +73,11 @@ class CustomUserModelTest(TestCase):
             )
 
     def test_create_user_with_empty_mobile_phone_number(self):
-        # Test creating a user with empty mobile phone number
+        """Test creating a user with empty mobile phone number."""
         with self.assertRaises(ValueError):
+
             CustomUser.objects.create_user(
+                "testuser",
                 email="testuser@example.com",
                 mobile_phone_number="",
                 password="testpassword123",
