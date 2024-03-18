@@ -22,13 +22,13 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("Email cannot be empty")
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save()
 
         return user
 
-    def create_superuser(self, username, email=None, password=None, **extra_fields):
+    def create_superuser(self, username, email, password=None, **extra_fields):
         """Set the defaults on the superuser."""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -49,7 +49,6 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
     username = models.CharField(
-        default=str(email),
         max_length=60,
         null=False,
         unique=True,
