@@ -30,9 +30,9 @@ class LoginView(APIView):
         )
 
     def post(self, request, *args, **kwargs):
-        email = request.data.get("email")
+        username = request.data.get("username")
         password = request.data.get("password")
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
@@ -43,9 +43,10 @@ class LoginView(APIView):
             # )
             print(request.get_host())
             data = serializer.data
-            data["profile_photo"] = (
-                "http://" + request.get_host() + data["profile_photo"]
-            )
+            if data["profile_photo"] is not None:
+                data["profile_photo"] = (
+                    "http://" + request.get_host() + data["profile_photo"]
+                )
 
             return Response(data, status=status.HTTP_200_OK)
 
