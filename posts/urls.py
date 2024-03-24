@@ -4,7 +4,7 @@ Contains all the urls related to posts
 """
 
 from django.urls import path
-from .views import PostList, UserPostListing, LikePostView
+from .views import PostList, UserPostListing, LikePostView, DeletePostView
 
 urlpatterns = [
     path(
@@ -21,5 +21,10 @@ urlpatterns = [
         "like/<int:id>",
         LikePostView.as_view(),
         name="like-post",
+    ),
+    path(
+        "delete/<int:pk>",
+        DeletePostView.as_view(),
+        name="delete-post",
     ),
 ]

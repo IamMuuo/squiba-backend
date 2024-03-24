@@ -89,3 +89,13 @@ class LikePostView(generics.UpdateAPIView):
         post.save()
         serializer = self.get_serializer(post)
         return Response(serializer.data)
+
+
+class DeletePostView(generics.DestroyAPIView):
+    """DeletePostView.
+
+    This method deletes a post from the server
+    """
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
