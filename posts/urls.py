@@ -4,12 +4,23 @@ Contains all the urls related to posts
 """
 
 from django.urls import path
-from .views import PostList, UserPostListing, LikePostView, DeletePostView
+from .views import (
+    PostList,
+    UserPostListing,
+    LikePostView,
+    DeletePostView,
+    PostListings,
+)
 
 urlpatterns = [
     path(
-        "listings/",
+        "create/",
         PostList.as_view(),
+        name="post-create",
+    ),
+    path(
+        "listings/",
+        PostListings.as_view(),
         name="post-listing",
     ),
     path(

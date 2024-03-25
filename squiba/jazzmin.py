@@ -1,3 +1,5 @@
+# from settings import auth
+
 SQUIBA_JAZZMIN = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Squiba Admin",
@@ -30,7 +32,8 @@ SQUIBA_JAZZMIN = {
     # Links to put along the top menu
     "topmenu_links": [
         # Url that gets reversed (Permissions can be added)
-        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Home", "url": "admin:index",
+            "permissions": ["auth.view_user"]},
         # external url that opens in a new window (Permissions can be added)
         {
             "name": "Support",

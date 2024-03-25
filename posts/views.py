@@ -12,11 +12,18 @@ from .serializers import PostSerializer
 
 
 # Create your views here.
-class PostList(generics.ListCreateAPIView):
+class PostList(generics.CreateAPIView):
     """PostList.
 
     Handles functionality for post creation
     """
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class PostListings(generics.ListAPIView):
+    """PostListings."""
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
