@@ -18,3 +18,33 @@ class CreateComment(generics.CreateAPIView):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+
+class ListComments(generics.ListAPIView):
+    """List Comments.
+
+    Lists a comment related to a post
+    """
+
+    def get_queryset(self):
+        """Return a actual user posts."""
+        post = self.kwargs["post"]
+        return Comment.objects.filter(post=post)
+
+    serializer_class = CommentSerializer
+    lookup_field = "post"
+
+
+class DeleteComment(generics.DestroyAPIView):
+    """Delete Comment.
+
+    Deletes a comment from the database.
+    """
+
+    def get_queryset(self):
+        """Get the query parameters."""
+        id = self.kwargs["id"]
+        return Comment.objects.filter(id=id)
+
+    serializer_class = CommentSerializer
+    lookup_field = "id"
