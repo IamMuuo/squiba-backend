@@ -18,16 +18,16 @@ class Post(models.Model):
     description = models.TextField()
     likes = models.IntegerField()
     liked_by = models.ManyToManyField(
-        CustomUser, related_name="liked_posts", blank=True
+        CustomUser,
+        related_name="liked_posts",
+        blank=True,
     )
 
-    content = models.ImageField(upload_to="posts/", null=True, blank=True)
-    # Assuming you have a Comment model with a ForeignKey to Post
-    # comments = models.ManyToManyField(
-    #     Comment,
-    #     related_name="post_comments",
-    #     blank=True,
-    # )
+    content = models.ImageField(
+        upload_to="posts/",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         """Return a string representation of a post."""
