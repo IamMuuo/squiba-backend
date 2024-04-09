@@ -4,6 +4,7 @@ from .views import (
     CustomUserListView,
     CustomUserRetrieveUpdateDestroyView,
     LoginView,
+    FeaturedApiView,
 )
 
 urlpatterns = [
@@ -26,5 +27,10 @@ urlpatterns = [
         "auth/",
         LoginView.as_view(),
         name="authentication",
+    ),
+    path(
+        "featured/",
+        FeaturedApiView.as_view(),
+        name="featured-users",
     ),
 ]

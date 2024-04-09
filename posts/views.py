@@ -106,3 +106,20 @@ class DeletePostView(generics.DestroyAPIView):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+
+class FeaturedPostView(generics.ListAPIView):
+    """An api to return featured posts."""
+
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        """Return a list of featured users."""
+        # Use order_by('?') to get a random sample of posts
+        return Post.objects.all().order_by("?")[:20]
+
+    def get(self, request, *args, **kwargs):
+        """Return a list of featured users."""
+        queryset = self.get_queryset()
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

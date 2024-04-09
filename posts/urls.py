@@ -10,6 +10,7 @@ from .views import (
     LikePostView,
     DeletePostView,
     PostListings,
+    FeaturedPostView,
 )
 
 urlpatterns = [
@@ -37,5 +38,10 @@ urlpatterns = [
         "delete/<int:pk>",
         DeletePostView.as_view(),
         name="delete-post",
+    ),
+    path(
+        "featured",
+        FeaturedPostView.as_view(),
+        name="featured-post",
     ),
 ]
