@@ -3,7 +3,6 @@
 Api methods.
 """
 
-from django.http import Http404
 from rest_framework import generics
 from rest_framework.views import APIView, Response, status
 from .models import CustomUser
@@ -70,14 +69,30 @@ class FeaturedApiView(generics.ListAPIView):
     """An api to return featured users."""
 
     serializer_class = CustomUserSerializer
+    queryset = CustomUser.objects.all().order_by("?")[:10]
 
-    def get_queryset(self):
-        """Return a list of featured users."""
-        # Use order_by('?') to get a random sample of users
-        return CustomUser.objects.all().order_by("?")[:10]
 
-    def get(self, request, *args, **kwargs):
-        """Return a list of featured users."""
-        queryset = self.get_queryset()
-        serializer = CustomUserSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# class SearchApiView(generics.RetrieveAPIView):
+#     """Search for a user by username."""
+#
+#     serializer_class = CustomUserSerializer
+#     queryset = CustomUser.objects.all()
+#
+
+
+class SearchApiView(generics.RetrieveAPIView):
+    """Search for a user by first name, last name, or username."""
+
+    serializer_class = CustomUserSerializer
+    queryset = CustomUser.objects.all()
+
+
+class DeleteUserApiView(generics.DestroyAPIView):
+    """
+    DeleteUserApiView.
+
+    Delete a user from the database.
+    """
+
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer

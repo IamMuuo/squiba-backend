@@ -5,6 +5,7 @@ from .views import (
     CustomUserRetrieveUpdateDestroyView,
     LoginView,
     FeaturedApiView,
+    DeleteUserApiView,
 )
 
 urlpatterns = [
@@ -32,5 +33,10 @@ urlpatterns = [
         "featured/",
         FeaturedApiView.as_view(),
         name="featured-users",
+    ),
+    path(
+        "delete/<int:pk>",
+        DeleteUserApiView.as_view(),
+        name="delete-user",
     ),
 ]
