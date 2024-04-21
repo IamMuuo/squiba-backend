@@ -25,7 +25,7 @@ class PostList(generics.CreateAPIView):
 class PostListings(generics.ListAPIView):
     """PostListings."""
 
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by("-date_posted")
     serializer_class = PostSerializer
 
 
@@ -40,7 +40,7 @@ class UserPostListing(generics.ListAPIView):
     def get_queryset(self):
         """Return a actual user posts."""
         user_id = self.kwargs["user_id"]
-        return Post.objects.filter(user_id=user_id)
+        return Post.objects.filter(user_id=user_id).order_by("-date_posted")
 
 
 class LikePostView(generics.UpdateAPIView):
