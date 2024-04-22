@@ -11,7 +11,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     def get_image_url(self, obj):
         """Return the image with its full url."""
         request = self.context.get("request")
-        return request.build_absolute_uri(obj.profile_photo.url)
+        return request.build_absolute_uri(obj.profile_photo)
 
     class Meta:
         """Meta class defining fields to be serialized."""
