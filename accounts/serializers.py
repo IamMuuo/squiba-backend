@@ -6,6 +6,13 @@ from accounts.models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     """Serialize the user model."""
 
+    profile_photo = serializers.SerializerMethodField("get_image_url")
+
+    def get_image_url(self, obj):
+        """Return the image with its full url."""
+        request = self.context.get("request")
+        return request.build_absolute_uri(obj.profile_photo.url)
+
     class Meta:
         """Meta class defining fields to be serialized."""
 
