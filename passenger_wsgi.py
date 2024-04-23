@@ -1,9 +1,11 @@
-import sys, os
+from django.core.wsgi import get_wsgi_application
+import sys
+import os
 
 sys.path.append(os.getcwd())
-os.environ['DJANGO_SETTINGS_MODULE'] = "squiba.settings" # change 'application_name' to
-                                                                   # the name of the Django project
+# change 'application_name' to
+os.environ["DJANGO_SETTINGS_MODULE"] = "squiba.settings"
+# the name of the Django project
 
-from django.core.wsgi import get_wsgi_application
+
 application = get_wsgi_application()
-
